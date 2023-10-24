@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">GPLX_B2</string>
+    <string name="txt_title_primary">Otomoto - B2</string>
+
+    <string name="txt_test">Thi thử</string>
+    <string name="txt_save">Lưu</string>
+    <string name="txt_wrong">Câu sai</string>
+    <string name="txt_wrong_often">Câu hay sai</string>
+    <string name="txt_shape">Sa hình</string>
+    <string name="txt_tips">Mẹo</string>
+    <string name="txt_traffic_signs">Biển báo</string>
+    <string name="txt_QA">Hỏi đáp</string>
+
+    <string name="txt_practice">Tiến độ ôn tập</string>
+    <string name="txt_safety_index">Chỉ số an toàn</string>
+    <string name="txt_question_number">1/600 câu</string>
+    <string name="txt_exam_number">1/18 đề thi</string>
+    <string name="txt_safety_index_percent">100%</string>
+
+    <string name="txt_review_by_topic">Ôn tập theo chủ đề</string>
+
+    <string name="btn_prev">Câu trước</string>
+    <string name="btn_next">Câu sau</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

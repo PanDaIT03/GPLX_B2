@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lnAnswerItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center">
+
+        <RadioButton
+            android:id="@+id/cbAnswer"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtAnswerNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 -"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/txtAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="0dp"
+            android:paddingStart="5dp"
+            android:text="@string/app_name"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>

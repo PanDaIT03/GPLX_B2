@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/baseline_arrow_back_24"
+                android:onClick="onClickBackToMain"/>
+
+            <!-- This view with weight 1 as a flex space to evenly space out other views -->
+            <View android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Câu hỏi điểm liệt"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+
+            <!-- This view with weight 1 as a flex space to evenly space out other views -->
+            <View android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:drawableEnd="@drawable/baseline_chat_24"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:id="@+id/imgQuestionTopic"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/warning_pile"
+                android:contentDescription="@string/app_name"/>
+
+            <TextView
+                android:id="@+id/txtNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Câu 1/66"
+                android:layout_marginStart="2dp"
+                android:layout_gravity="center_vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/save"
+                    android:contentDescription="@string/txt_save"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpgQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:layout_above="@+id/layout_bottom"/>
+
+            <LinearLayout
+                android:id="@+id/layout_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_alignParentBottom="true">
+
+                <TextView
+                    android:id="@+id/txtPrev"
+                    android:layout_width="150dp"
+                    android:layout_height="48dp"
+                    android:textColor="#3498db"
+                    android:drawableLeft="@drawable/baseline_keyboard_arrow_left_24"
+                    android:text="@string/btn_prev"
+                    android:textAllCaps="true"
+                    android:gravity="center|start"
+                    android:backgroundTint="@color/white"/>
+
+                <!-- This view with weight 1 as a flex space to evenly space out other views -->
+                <View android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txtShowAllQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:gravity="center"
+                    android:textColor="#3498db"
+                    android:textAllCaps="true"
+                    android:drawableStart="@drawable/baseline_keyboard_double_arrow_up_24"/>
+
+                <!-- This view with weight 1 as a flex space to evenly space out other views -->
+                <View android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txtNext"
+                    android:layout_width="150dp"
+                    android:layout_height="48dp"
+                    android:gravity="center|end"
+                    android:textColor="#3498db"
+                    android:drawableEnd="@drawable/baseline_keyboard_arrow_right_24"
+                    android:text="@string/btn_next"
+                    android:textAllCaps="true"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include layout="@layout/layout_bottom_sheet"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

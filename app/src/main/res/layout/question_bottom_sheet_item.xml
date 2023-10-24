@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lnQuestionItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgTopicBottomSheet"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/warning_pile" />
+
+        <TextView
+            android:id="@+id/txtQuestionNumberBottomSheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Câu 1/66"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/txtLearned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text=""
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/imgLearned"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/x" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtQuestionBottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="start"
+            android:text="Hành vi nào dưới đây bị nghiêm cấm?" />
+    </LinearLayout>
+</LinearLayout>
