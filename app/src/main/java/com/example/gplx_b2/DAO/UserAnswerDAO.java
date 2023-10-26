@@ -3,10 +3,12 @@ package com.example.gplx_b2.DAO;
 import android.util.Log;
 
 import com.example.gplx_b2.Database.ConnSQL;
+import com.example.gplx_b2.Modal.Question;
 import com.example.gplx_b2.Modal.Topic;
 import com.example.gplx_b2.Modal.UserAnswer;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;

@@ -40,8 +40,7 @@
             android:id="@+id/imgTrafficSign"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:src="@drawable/sh_an_tai_khach_con"/>
+            android:layout_gravity="center"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvAnswer"

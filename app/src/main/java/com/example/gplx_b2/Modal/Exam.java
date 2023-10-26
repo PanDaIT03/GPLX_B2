@@ -1,8 +1,32 @@
 package com.example.gplx_b2.Modal;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class Exam {
-    List<Question> diemliet;
-    List<Question> knqt;
+public class Exam implements Serializable {
+    private int id;
+    private String name;
+
+    public Exam() {
+    }
+
+    public Exam(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

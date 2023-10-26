@@ -1,7 +1,6 @@
 package com.example.gplx_b2;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,34 +9,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.example.gplx_b2.Controller.AnswerAdapter;
-import com.example.gplx_b2.Controller.QuestionBottomSheetDialogItemAdapter;
 import com.example.gplx_b2.DAO.QuestionDAO;
 import com.example.gplx_b2.Modal.Question;
 import com.example.gplx_b2.Modal.Topic;
-import com.example.gplx_b2.Modal.UserAnswer;
 import com.example.gplx_b2.myInterface.IClickAnswerItemListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class QuestionFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -50,6 +36,8 @@ public class QuestionFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private boolean isTest;
+    private int examID;
     private Context context;
     private Question question;
     private Topic topic;
@@ -59,6 +47,11 @@ public class QuestionFragment extends Fragment {
     private QuestionDAO questionDAO;
     private TextView tvQuestion;
     private ImageView imgTrafficSign;
+
+    public QuestionFragment(boolean isTest, int examID) {
+        this.isTest = isTest;
+        this.examID = examID;
+    }
 
     public static QuestionFragment newInstance(String param1, String param2) {
         QuestionFragment fragment = new QuestionFragment();
@@ -102,31 +95,23 @@ public class QuestionFragment extends Fragment {
         if (question != null) {
             tvQuestion.setText(question.getQuestion());
 
-            Glide.with(context)
-                    .load("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg")
-                    .dontAnimate()
-                    .override(300, 300)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target,
-                                                    boolean isFirstResource) {
-                            //on load failed
-                            Log.d("Error", e.getMessage());
-                            return false;
-                        }
+            if (question.getTrafficSignsID() != 0) {
+                String name = getImageFileName();
+                Log.d("imgName", name);
 
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
-                                                       DataSource dataSource, boolean isFirstResource) {
-                            //on load success
-                            return false;
-                        }
-                    })
-                    .into(imgTrafficSign);
+                try {
+                    int imageResource = context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+                    Log.d("imgRsrc", String.valueOf(imageResource));
+                    imgTrafficSign.setImageResource(imageResource);
+                } catch (Exception ex) {
+                    Log.d("Error", ex.getMessage());
+                }
+            } else {
+                imgTrafficSign.setVisibility(View.GONE);
+            }
 
             renderListAnswer(question);
         }
-
         return layout;
     }
 
@@ -147,7 +132,7 @@ public class QuestionFragment extends Fragment {
     private String getImageFileName() {
         String name = null;
         Bundle bundle = getArguments();
-        if(bundle != null)
+        if (bundle != null)
             name = bundle.getString("imageFileName");
 
         return name;
@@ -158,7 +143,8 @@ public class QuestionFragment extends Fragment {
         answerRecyclerView.setLayoutManager(linearLayoutManager);
 
         List<String> answerList = question.getAnswerList();
-        answerAdapter = new AnswerAdapter(context, standardListAnswer(answerList), new IClickAnswerItemListener() {
+        answerAdapter = new AnswerAdapter(context, standardListAnswer(answerList), question.getId(), isTest, examID,
+                new IClickAnswerItemListener() {
             @Override
             public void onClickCheckBox(ArrayList<Integer> selectCheck, int adapterPosition) {
                 for (int i = 0; i < selectCheck.size(); i++) {
@@ -181,13 +167,13 @@ public class QuestionFragment extends Fragment {
                     if (answer.equals(answerCorrect))
                         isCorrect = true;
 
-                    int rec = 0;
-                    questionDAO = new QuestionDAO();
-                    rec = questionDAO.insertUserAnswer(answer, question.getId());
-                    if (rec > 0)
-                        Log.d("insert", "Insert success");
-                    else
-                        Log.d("insert", "Insert failure");
+//                    int rec = 0;
+//                    questionDAO = new QuestionDAO();
+//                    rec = questionDAO.insertUserAnswer(answer, question.getId());
+//                    if (rec > 0)
+//                        Log.d("insert", "Insert success");
+//                    else
+//                        Log.d("insert", "Insert failure");
                 }
 
                 return isCorrect;

@@ -1,11 +1,9 @@
 package com.example.gplx_b2.Controller;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.gplx_b2.DAO.QuestionDAO;
 import com.example.gplx_b2.Modal.Question;
-import com.example.gplx_b2.Modal.Topic;
 import com.example.gplx_b2.QuestionFragment;
 
 import java.util.List;
@@ -18,10 +16,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 public class ViewPagerAdapter extends FragmentStateAdapter {
     private List<Question> questionList;
     private QuestionDAO questionDAO;
+    private boolean isTest;
+    private int examID;
 
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<Question> list) {
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<Question> questionList, boolean isTest, int examID) {
         super(fragmentActivity);
-        this.questionList = list;
+        this.questionList = questionList;
+        this.isTest = isTest;
+        this.examID = examID;
     }
 
     @NonNull
@@ -32,12 +34,12 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
         Question question = questionList.get(position);
         String name = null;
-        if(question.getTrafficSignsID() != 0) {
+        if (question.getTrafficSignsID() != 0) {
             questionDAO = new QuestionDAO();
             name = questionDAO.getImageFileName(question.getTrafficSignsID());
         }
 
-        QuestionFragment questionFragment = new QuestionFragment();
+        QuestionFragment questionFragment = new QuestionFragment(isTest, examID);
         Bundle bundle = new Bundle();
 
         bundle.putSerializable("question_object", question);

@@ -32,6 +32,13 @@ public class QuestionBottomSheetDialog extends com.google.android.material.botto
     private RecyclerView rcvQuestion;
     private TextView tvHideBottomSheet;
 
+    public QuestionBottomSheetDialog(Context context, List<Question> questionList,
+                                     IClickBottomSheetDialogItemListener iClickBottomSheetDialogItemListener) {
+        this.context = context;
+        this.questionList = questionList;
+        this.iClickBottomSheetDialogItemListener = iClickBottomSheetDialogItemListener;
+    }
+
     public QuestionBottomSheetDialog(Context context, List<Question> questionList, Topic topic, List<UserAnswer> userAnswerList,
                                      IClickBottomSheetDialogItemListener listener) {
         this.context = context;
@@ -55,19 +62,36 @@ public class QuestionBottomSheetDialog extends com.google.android.material.botto
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rcvQuestion.setLayoutManager(linearLayoutManager);
 
-        QuestionBottomSheetDialogItemAdapter questionBottomSheetDialogItemAdapter =
-                new QuestionBottomSheetDialogItemAdapter(context, questionList, topic, userAnswerList,
-                        new IClickBottomSheetDialogItemListener() {
-                            @Override
-                            public void onClick(int adapterPosition) {
-                                iClickBottomSheetDialogItemListener.onClick(adapterPosition);
-                            }
+        QuestionBottomSheetDialogItemAdapter questionBottomSheetDialogItemAdapter = null;
+        if (topic != null && userAnswerList != null) {
+            questionBottomSheetDialogItemAdapter =
+                    new QuestionBottomSheetDialogItemAdapter(context, questionList, topic, userAnswerList,
+                            new IClickBottomSheetDialogItemListener() {
+                                @Override
+                                public void onClick(int adapterPosition) {
+                                    iClickBottomSheetDialogItemListener.onClick(adapterPosition);
+                                }
 
-                            @Override
-                            public void onClickHide() {
-                                iClickBottomSheetDialogItemListener.onClickHide();
-                            }
-                        });
+                                @Override
+                                public void onClickHide() {
+                                    iClickBottomSheetDialogItemListener.onClickHide();
+                                }
+                            });
+        }
+        else {
+            questionBottomSheetDialogItemAdapter =
+                    new QuestionBottomSheetDialogItemAdapter(context, questionList, new IClickBottomSheetDialogItemListener() {
+                        @Override
+                        public void onClick(int adapterPosition) {
+                            iClickBottomSheetDialogItemListener.onClick(adapterPosition);
+                        }
+
+                        @Override
+                        public void onClickHide() {
+                            iClickBottomSheetDialogItemListener.onClickHide();
+                        }
+                    });
+        }
         rcvQuestion.setAdapter(questionBottomSheetDialogItemAdapter);
 
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);

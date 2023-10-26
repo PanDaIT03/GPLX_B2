@@ -17,8 +17,7 @@
             android:id="@+id/imgTopicBottomSheet"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/warning_pile" />
+            android:contentDescription="@string/app_name"/>
 
         <TextView
             android:id="@+id/txtQuestionNumberBottomSheet"
@@ -40,8 +39,7 @@
             android:id="@+id/imgLearned"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/x" />
+            android:contentDescription="@string/app_name" />
     </LinearLayout>
 
     <LinearLayout

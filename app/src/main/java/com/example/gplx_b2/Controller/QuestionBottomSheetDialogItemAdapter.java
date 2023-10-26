@@ -28,6 +28,13 @@ public class QuestionBottomSheetDialogItemAdapter extends RecyclerView.Adapter<Q
     private Topic topic;
     private IClickBottomSheetDialogItemListener iClickBottomSheetDialogItemListener;
 
+    public QuestionBottomSheetDialogItemAdapter(Context context, List<Question> questionList,
+                                                IClickBottomSheetDialogItemListener iClickBottomSheetDialogItemListener) {
+        this.context = context;
+        this.questionList = questionList;
+        this.iClickBottomSheetDialogItemListener = iClickBottomSheetDialogItemListener;
+    }
+
     public QuestionBottomSheetDialogItemAdapter(Context context, List<Question> questionList, Topic topic,
                                                 List<UserAnswer> userAnswerList, IClickBottomSheetDialogItemListener listener) {
         this.context = context;
@@ -52,30 +59,36 @@ public class QuestionBottomSheetDialogItemAdapter extends RecyclerView.Adapter<Q
         if (question == null)
             return;
 
-        boolean learned = false;
-        for (UserAnswer userAnswer : userAnswerList)
-            if (question.getId() == userAnswer.getQuestionID()) {
-                learned = true;
-                holder.tvLearned.setText(" | đã học");
+//        boolean learned = false;
+//        if (userAnswerList != null)
+//            for (UserAnswer userAnswer : userAnswerList)
+//                if (question.getId() == userAnswer.getQuestionID()) {
+//                    learned = true;
+//                    holder.tvLearned.setText(" | đã học");
+//
+//                    if (question.getAnswerCorrect().equals(userAnswer.getAnswer())) {
+//                        holder.imgLearned.setImageResource(getImageResource("tick"));
+//                        Log.d("check", "tick " + question.getId() + " " + userAnswer.getQuestionID());
+//                    } else {
+//                        holder.imgLearned.setImageResource(getImageResource("x"));
+//                        Log.d("check", "x " + question.getId() + " " + userAnswer.getQuestionID());
+//                    }
+//                }
+//        if (!learned)
+//            holder.imgLearned.setImageDrawable(null);
 
-                if (question.getAnswerCorrect().equals(userAnswer.getAnswer())) {
-                    holder.imgLearned.setImageResource(getImageResource("tick"));
-                    Log.d("check", "tick " + question.getId() + " " + userAnswer.getQuestionID());
-                } else {
-                    holder.imgLearned.setImageResource(getImageResource("x"));
-                    Log.d("check", "x " + question.getId() + " " + userAnswer.getQuestionID());
-                }
-            }
-        if (!learned)
-            holder.imgLearned.setImageDrawable(null);
-
-        String imageName = topic.getImage();
         String questionNumber = "Câu " + (position + 1) + "/" + questionList.size();
+        if (topic != null) {
+            String imageName = topic.getImage();
 
-        try {
-            holder.imgTopic.setImageResource(getImageResource(imageName));
-        } catch (Exception ex) {
-            Log.d("error", ex.getMessage());
+            try {
+                holder.imgTopic.setImageResource(getImageResource(imageName));
+            } catch (Exception ex) {
+                Log.d("error", ex.getMessage());
+            }
+        } else {
+            holder.imgTopic.setImageDrawable(null);
+            holder.imgTopic.setVisibility(View.GONE);
         }
         holder.tvQuestionNumber.setText(questionNumber);
         holder.tvQuestion.setText(question.getQuestion());

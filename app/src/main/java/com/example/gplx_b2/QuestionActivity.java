@@ -151,7 +151,7 @@ public class QuestionActivity extends AppCompatActivity {
         imgQuestionTopic.setImageResource(imageResource);
 
         List<Question> questionList = getListQuestion(topic.getTitle());
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, questionList);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, questionList, false, 0);
         viewPager2.setAdapter(viewPagerAdapter);
     }
 

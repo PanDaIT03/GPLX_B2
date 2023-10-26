@@ -20,6 +20,46 @@ public class QuestionDAO {
 
     Connection connection;
 
+    public List<Question> getAllQuestions() {
+        List<Question> questionList = new ArrayList<>();
+        ConnSQL connSql = new ConnSQL();
+
+        connection = connSql.conn();
+        if (connection != null) {
+            try {
+                String sqlStatement = "SELECT * FROM questions";
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(sqlStatement);
+
+                while (rs.next()) {
+                    Question question = new Question();
+                    List<String> answerList = new ArrayList<>();
+
+                    question.setId(rs.getInt("id"));
+                    question.setQuestion(rs.getString("question"));
+                    question.setAnswerCorrect(rs.getString("answer_correct"));
+                    question.setTrafficSignsID(rs.getInt("traffic_signs_id"));
+
+                    answerList.add(rs.getString("answer_a"));
+                    answerList.add(rs.getString("answer_b"));
+                    answerList.add(rs.getString("answer_c"));
+                    answerList.add(rs.getString("answer_d"));
+
+                    question.setAnswerList(answerList);
+                    questionList.add(question);
+                }
+
+                connection.close();
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        } else {
+            Log.e("Error: ", "Connect failure!");
+        }
+
+        return questionList;
+    }
+
     public List<Question> getListQuestions(String topic) {
         List<Question> questionList = new ArrayList<>();
         ConnSQL connSql = new ConnSQL();
@@ -61,32 +101,32 @@ public class QuestionDAO {
         return questionList;
     }
 
-    public int insertUserAnswer(String answer, int questionID) {
-        int rec = 0;
-        ConnSQL connSql = new ConnSQL();
-
-        connection = connSql.conn();
-        if (connection != null) {
-            try {
-                String sqlStatement = "{CALL sp_insertUserAnswer(?, ?)}";
-                PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
-
-                preparedStatement.setString(1, answer);
-                preparedStatement.setInt(2, questionID);
-
-                rec = preparedStatement.executeUpdate();
-
-                preparedStatement.close();
-                connection.close();
-            } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
-            }
-        } else {
-            Log.e("Error: ", "Connect failure!");
-        }
-
-        return rec;
-    }
+//    public int insertUserAnswer(String answer, int questionID) {
+//        int rec = 0;
+//        ConnSQL connSql = new ConnSQL();
+//
+//        connection = connSql.conn();
+//        if (connection != null) {
+//            try {
+//                String sqlStatement = "{CALL sp_insertUserAnswer(?, ?)}";
+//                PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+//
+//                preparedStatement.setString(1, answer);
+//                preparedStatement.setInt(2, questionID);
+//
+//                rec = preparedStatement.executeUpdate();
+//
+//                preparedStatement.close();
+//                connection.close();
+//            } catch (Exception e) {
+//                Log.e("Error: ", e.getMessage());
+//            }
+//        } else {
+//            Log.e("Error: ", "Connect failure!");
+//        }
+//
+//        return rec;
+//    }
 
     public List<UserAnswer> getListUserAnswer() {
         List<UserAnswer> userAnswerList = new ArrayList<>();
@@ -127,8 +167,8 @@ public class QuestionDAO {
                 String sqlStatement = "{CALL sp_getImageName(?)}";
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
                 preparedStatement.setInt(1, imgID);
-                ResultSet rs = preparedStatement.executeQuery();
 
+                ResultSet rs = preparedStatement.executeQuery();
                 while (rs.next())
                     name = rs.getString("name");
 
@@ -141,5 +181,45 @@ public class QuestionDAO {
         }
 
         return name;
+    }
+
+    public List<Question> getListQuestionFromExam(String examName) {
+        List<Question> questionList = new ArrayList<>();
+        ConnSQL connSql = new ConnSQL();
+
+        connection = connSql.conn();
+        if (connection != null) {
+            try {
+                String sqlStatement = "{CALL sp_selectQuestionFromExam(?)}";
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+                preparedStatement.setString(1, examName);
+
+                ResultSet rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+                    Question question = new Question();
+                    List<String> answerList = new ArrayList<>();
+
+                    question.setId(rs.getInt("id"));
+                    question.setQuestion(rs.getString("question"));
+                    question.setAnswerCorrect(rs.getString("answer_correct"));
+                    question.setTrafficSignsID(rs.getInt("traffic_signs_id"));
+
+                    answerList.add(rs.getString("answer_a"));
+                    answerList.add(rs.getString("answer_b"));
+                    answerList.add(rs.getString("answer_c"));
+                    answerList.add(rs.getString("answer_d"));
+
+                    question.setAnswerList(answerList);
+                    questionList.add(question);
+                }
+                connection.close();
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        } else {
+            Log.e("Error: ", "Connect failure!");
+        }
+
+        return questionList;
     }
 }

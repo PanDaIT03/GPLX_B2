@@ -13,7 +13,7 @@ public class ConnSQL {
     @SuppressLint("NewApi")
     public Connection conn() {
         String connectURL = null;
-        String ip = "192.168.137.127", port = "1433", db = "GPLX_B2", username = "sa",
+        String ip = "10.0.2.2", port = "1433", db = "GPLX_B2", username = "sa",
                 password = "<123456aA@$’>";
 
         StrictMode.ThreadPolicy a = new StrictMode.ThreadPolicy.Builder().permitAll().build();
